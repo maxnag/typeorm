@@ -3469,7 +3469,7 @@ export class SelectQueryBuilder<Entity extends ObjectLiteral>
                 queryRunner,
             )
                 .select(`DISTINCT ${querySelects.join(", ")}`)
-                .addSelect(selects)
+                // .addSelect(selects) 
                 .from(
                     `(${originalQuery
                         .orderBy()
