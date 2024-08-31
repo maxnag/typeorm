@@ -3425,8 +3425,8 @@ export class SelectQueryBuilder<Entity extends ObjectLiteral>
         ) {
             // we are skipping order by here because its not working in subqueries anyway
             // to make order by working we need to apply it on a distinct query
-            const [selects, orderBys] =
-                this.createOrderByCombinedWithSelectExpression("distinctAlias")
+            const combinationOrderBys =   this.createOrderByCombinedWithSelectExpression("distinctAlias");
+            const orderBys =  combinationOrderBys[1];
             const metadata = this.expressionMap.mainAlias.metadata
             const mainAliasName = this.expressionMap.mainAlias.name
 
@@ -3469,7 +3469,6 @@ export class SelectQueryBuilder<Entity extends ObjectLiteral>
                 queryRunner,
             )
                 .select(`DISTINCT ${querySelects.join(", ")}`)
-                // .addSelect(selects) 
                 .from(
                     `(${originalQuery
                         .orderBy()
